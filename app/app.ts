@@ -8,20 +8,21 @@ import {StudentDetails} from './components/studentdetails';
 
 	template: `
 	<div class="studenttrack light-primary-color text-primary-color">
-	   <h1 class="dark-primary-color text-primary-color">Studenttrack {{studenttrack.name}} (<span [textContent]="getCount()"></span> attendees)</h1>
+	   <h1 class="dark-primary-color text-primary-color">Student track {{studentTrack.name}} (<span [textContent]="getCount()"></span> attendees)</h1>
 	    <student-details 
 			[student]="student" 
-			[isSelected]="currentstudent === student"
-			*ngFor="#student of studenttrack.getStudents()" 
+			[isSelected]="currentStudent === student"
+			*ngFor="#student of studentTrack.getStudents()" 
 			(selected)="setSelected(student)"> 
-		</studentdetails>
+		</student-details>
 	 </div>
 	`,
 	styles:[`
 	 .student { padding:15px; }
 	 .studentTrack { border:1px solid black;margin:5px;padding:0px; }
 	 .studentTrack h1 { margin:0px;padding:15px;}
-	`]
+	`],
+    directives: [StudentDetails]
 })
 export class SurveyApplication {	
 	// ADD FIELD FOR THE STUDENTTRACK
@@ -45,7 +46,7 @@ export class SurveyApplication {
 	}
     
 	setSelected(student:Student){
-		console.log("student selected" + student.firstname);
+		console.log(`student selected ${student.firstname}`);
 		this.currentStudent = student;
 	}
     
