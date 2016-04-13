@@ -1,4 +1,5 @@
 import { Component } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { bootstrap } from 'angular2/platform/browser';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {Student, StudentTrack} from './models/student';
@@ -11,7 +12,7 @@ import 'rxjs/Rx';
 @Component({	selector: 'student-track-survey',
 
 	template: `
-       <div *ngIf="studentTrack">
+	<div *ngFor="#studentTrack of studentTracks" class="studenttrack light-primary-color text-primary-color">
 	   <h1 class="dark-primary-color text-primary-color">Student track {{studentTrack.name}} (<span [textContent]="studentTrack.getStudents().length"></span> attendees)</h1>
 	    <student-details 
 			[student]="student" 
@@ -19,7 +20,7 @@ import 'rxjs/Rx';
 			*ngFor="#student of studentTrack.getStudents()" 
 			(selected)="setSelected(student)"> 
 		</student-details>
-        </div>
+	 </div>
 	`,
 	styles:[`
 	 .student { padding:15px; }
@@ -29,17 +30,33 @@ import 'rxjs/Rx';
     directives: [StudentDetails]
 })
 export class SurveyApplication {	
-	public studentTrack: StudentTrack; 	
+	public studentTracks: StudentTrack[]; 	
 	public currentStudent: Student;
 	
 	constructor (studentTrackService: StudentTrackService){
-	    studentTrackService.getStudentTracks().subscribe(studentTracks => this.studentTrack = studentTracks[0]);
+        this.studentTracks = [];
+	    studentTrackService.getStudentTracks().subscribe(studentTracks => this.studentTracks = studentTracks);
     }
 	
 	setSelected(student:Student){
+		console.log(`student selected ${student.firstname}`);
 		this.currentStudent = student;
 	}
+    
+    private randomFirstname(){
+        return this.pullRandom(['Nico', 'John', 'Harry', 'Klaas', 'Henk-Jan']);
+    }
+    private randomLastname(){
+        return this.pullRandom(['Beritsen', 'De Smedt', 'Jansen', 'Gorter', 'Brabander']);
+    }
+    private randomSchool(){
+        return this.pullRandom(['Hogeschool Breda', 'Hogeschool Den Bosch', 'Universiteit Amsterdam', 'Hogschool Utrecht']);
+    }
+    
+    private pullRandom(source: string[]){
+      return source[Math.floor(Math.random()*100)%source.length];
+    }
 }
 
 // bootstrap our application..
-bootstrap(SurveyApplication, [StudentTrackService, HTTP_PROVIDERS ]); 
+bootstrap(SurveyApplication, [StudentTrackService, StudentService, HTTP_PROVIDERS ]); 
