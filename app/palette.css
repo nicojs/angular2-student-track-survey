@@ -2,6 +2,7 @@
 
 .dark-primary-color    { background: #303F9F; }
 .default-primary-color { background: #3F51B5; }
+.defaultPrimaryColor { background: #3F51B5; }
 .light-primary-color   { background: #C5CAE9; }
 .text-primary-color    { color: #FFFFFF; }
 .accent-color          { background: #448AFF; }
@@ -10,3 +11,5 @@
 .divider-color         { border-color: #B6B6B6; }
 
 * { font-family:"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:300;}
+.selected { background-color:red; }
+.student { padding:15px; }
