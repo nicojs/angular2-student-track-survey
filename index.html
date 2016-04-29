@@ -10,17 +10,20 @@
     <script src="../node_modules/systemjs/dist/system.src.js"></script>
     <script src="../node_modules/rxjs/bundles/Rx.js"></script>
     <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
-	<link rel="stylesheet" href="./app/palette.css"></link>
-	
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <link rel="stylesheet" href="./app/palette.css"></link>
+
 </head>
+
 <body>
-	<student-track-survey></student-track-survey>
+    <student-track-survey></student-track-survey>
 </body>
 <script>
-	System.config({
+    System.config({
     packages: {'app': {defaultExtension: 'js'}}
   });
   System.import('app/app');
 
 </script>
+
 </html>
